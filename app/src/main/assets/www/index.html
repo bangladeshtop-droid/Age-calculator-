@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0f19">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>AgeBee Pro</title>
+  
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <!-- HIGH QUALITY LUXURY STARTUP SPLASH SCREEN -->
+  <div id="app-splash-screen">
+    <div class="splash-emblem-wrap">
+      <div class="splash-glow-ring"></div>
+      <img src="assets/logo.png" alt="AgeBee Pro" class="splash-logo-img">
+    </div>
+    <h1 class="splash-title">AgeBee Pro</h1>
+    <p class="splash-subtitle">Precision Age &amp; Milestone Engine</p>
+    <div class="splash-track">
+      <div class="splash-bar" id="splash-progress-bar"></div>
+    </div>
+    <div class="splash-status-text" id="splash-status-label">Initializing secure engine...</div>
+  </div>
+
+  <div id="app-container">
+    
+    <!-- TOP NAVIGATION BAR (Fixed: Logo, Name, Notification Bell only) -->
+    <header class="top-bar" id="app-top-bar" style="display: none;">
+      <div class="brand-wrapper">
+        <img src="assets/logo.png" alt="AgeBee Pro Logo" class="brand-logo-img" id="top-bar-logo">
+        <h1 class="brand-title" id="top-bar-app-name">AgeBee Pro</h1>
+      </div>
+      <button class="top-bar-action" id="btn-open-notifications" aria-label="Notifications">
+        <i data-lucide="bell"></i>
+        <span class="notification-badge" id="unread-notification-badge" style="display: none;">0</span>
+      </button>
+    </header>
+
+    <!-- MAIN SCROLLABLE CONTENT AREA -->
+    <main class="page-content" id="main-content">
+
+      <!-- ==================== 1. WELCOME / SIGN IN VIEW ==================== -->
+      <section class="welcome-screen" id="welcome-view">
+        <div class="welcome-hero">
+          <div class="welcome-logo-box">
+            <img src="assets/logo.png" alt="AgeBee Pro Icon">
+          </div>
+          <h2 class="welcome-title">Calculate Your Age Precisely</h2>
+          <p class="welcome-subtitle">Your age, your milestones, all in one place.</p>
+
+          <div class="welcome-illustration-card">
+            <div class="illustration-stat">
+              <i data-lucide="calendar"></i>
+              <span class="stat-num">365+</span>
+              <span class="stat-label">Milestones</span>
+            </div>
+            <div class="illustration-stat">
+              <i data-lucide="sparkles"></i>
+              <span class="stat-num">100%</span>
+              <span class="stat-label">Accuracy</span>
+            </div>
+            <div class="illustration-stat">
+              <i data-lucide="gem"></i>
+              <span class="stat-num">Pro</span>
+              <span class="stat-label">Wallet</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="welcome-actions">
+          <button class="btn-google" id="btn-google-login">
+            <svg class="google-icon-svg" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            Continue with Google
+          </button>
+          
+          <div class="legal-links">
+            <a id="link-privacy">Privacy Policy</a>
+            <span>•</span>
+            <a id="link-terms">Terms &amp; Conditions</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 2. HOME VIEW ==================== -->
+      <section class="page-view" id="home-view">
+        <!-- DIAMOND BALANCE CARD (Directly beneath header) -->
+        <div class="diamond-card">
+          <div class="card-top">
+            <span class="card-label">
+              <i data-lucide="gem" style="width: 14px; height: 14px;"></i>
+              Diamond Balance
+            </span>
+            <div class="chip-icon"></div>
+          </div>
+          
+          <div class="card-balance-section">
+            <div class="available-amount">
+              <svg class="diamond-gem-svg" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2">
+                <path d="M6 3h12l4 6-10 12L2 9l4-6z"/>
+                <path d="M11 3 8 9l4 12 4-12-3-6"/>
+                <path d="M2 9h20"/>
+              </svg>
+              <span id="home-available-diamonds">0</span>
+            </div>
+          </div>
+
+          <div class="card-stats-grid">
+            <div class="card-stat-item">
+              <span class="stat-title">Total Diamonds</span>
+              <span class="stat-value" id="home-total-diamonds">0</span>
+            </div>
+            <div class="card-stat-item">
+              <span class="stat-title">Used Diamonds</span>
+              <span class="stat-value" id="home-used-diamonds">0</span>
+            </div>
+          </div>
+
+          <button class="btn-buy-diamonds" id="btn-card-buy-diamonds">
+            <i data-lucide="shopping-cart" style="width: 16px; height: 16px;"></i>
+            Buy Diamonds
+          </button>
+        </div>
+
+        <!-- Welcome user greeting -->
+        <div class="welcome-user-banner">
+          <div>
+            <h3 class="user-greeting" id="home-greeting-name">Welcome!</h3>
+            <p class="user-greeting-sub">Calculate precise ages &amp; milestones</p>
+          </div>
+          <span class="badge-tag active" id="home-account-status">ACTIVE</span>
+        </div>
+
+        <!-- Quick Calculator Card -->
+        <div class="quick-calc-card clickable" id="btn-quick-calc">
+          <div class="quick-calc-info">
+            <h4 class="quick-calc-title">Quick Age Calculator</h4>
+            <p class="quick-calc-desc">Calculate years, months, days &amp; hours</p>
+          </div>
+          <div class="quick-calc-badge">
+            <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+            Start
+          </div>
+        </div>
+
+        <!-- Next Birthday Countdown Card -->
+        <div class="section-header">
+          <span class="section-title">
+            <i data-lucide="cake" style="width: 16px; height: 16px; color: var(--accent-gold);"></i>
+            Next Birthday Countdown
+          </span>
+        </div>
+        <div class="bday-card" id="home-bday-card">
+          <div class="bday-icon-wrap">
+            <i data-lucide="party-popper" style="width: 22px; height: 22px;"></i>
+          </div>
+          <div class="bday-details">
+            <h4 id="home-bday-title">Calculate your age to track</h4>
+            <p id="home-bday-sub">Your upcoming birthday milestones will appear here</p>
+          </div>
+        </div>
+
+        <!-- Recent Age Calculations -->
+        <div class="section-header">
+          <span class="section-title">
+            <i data-lucide="history" style="width: 16px; height: 16px; color: var(--primary);"></i>
+            Recent Calculations
+          </span>
+          <a class="section-link" id="link-all-calc-history">View All</a>
+        </div>
+        <div id="home-recent-calculations-list">
+          <div class="empty-state">No calculations yet. Tap "Add Age" to begin!</div>
+        </div>
+
+        <!-- Recent Purchase History -->
+        <div class="section-header">
+          <span class="section-title">
+            <i data-lucide="receipt" style="width: 16px; height: 16px; color: var(--success);"></i>
+            Recent Purchases
+          </span>
+          <a class="section-link" id="link-all-purchases">View All</a>
+        </div>
+        <div id="home-recent-purchases-list">
+          <div class="empty-state">No diamond purchases yet.</div>
+        </div>
+
+        <!-- Latest Notifications -->
+        <div class="section-header">
+          <span class="section-title">
+            <i data-lucide="bell-ring" style="width: 16px; height: 16px; color: var(--accent-purple);"></i>
+            Latest Announcements
+          </span>
+        </div>
+        <div id="home-announcements-list">
+          <div class="empty-state">No new announcements at this time.</div>
+        </div>
+      </section>
+
+      <!-- ==================== 3. ADD AGE PAGE ==================== -->
+      <section class="page-view" id="calc-view">
+        <div class="section-header" style="margin-top: 0;">
+          <h2 class="section-title">
+            <i data-lucide="calculator" style="color: var(--primary);"></i>
+            Calculate Your Age
+          </h2>
+        </div>
+
+        <!-- Cost Tag Card -->
+        <div class="cost-tag-card">
+          <span class="cost-tag-label">
+            <i data-lucide="gem" style="width: 15px; height: 15px; color: var(--primary);"></i>
+            Calculation Cost:
+          </span>
+          <span class="cost-tag-val">
+            <span id="calc-cost-display">5</span>
+            <small style="font-size: 11px; color: var(--text-muted); font-weight: normal;">Diamonds</small>
+          </span>
+        </div>
+
+        <!-- Form Input Card -->
+        <div class="glass-card" style="margin-top: 14px;">
+          <div class="calculator-container">
+            <div class="form-group">
+              <label class="form-label">Date of Birth</label>
+              
+              <!-- Segmented Day / Month / Year Selectors -->
+              <div class="date-pickers-grid">
+                <div>
+                  <select id="dob-day" class="custom-select" aria-label="Day">
+                    <option value="">Day</option>
+                  </select>
+                </div>
+                <div>
+                  <select id="dob-month" class="custom-select" aria-label="Month">
+                    <option value="">Month</option>
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                  </select>
+                </div>
+                <div>
+                  <select id="dob-year" class="custom-select" aria-label="Year">
+                    <option value="">Year</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Native picker option for convenience -->
+              <div class="native-date-wrapper">
+                <input type="date" id="dob-native-picker" class="native-date-input" aria-label="Select Date with Calendar">
+              </div>
+            </div>
+
+            <button class="btn-calculate" id="btn-submit-calculate">
+              <i data-lucide="sparkles"></i>
+              Calculate Age
+            </button>
+          </div>
+        </div>
+
+        <!-- Result Display Section -->
+        <div id="calc-result-container" style="display: none; margin-top: 16px;">
+          <div class="result-display-card">
+            <span class="result-badge">
+              <i data-lucide="check-circle" style="width: 13px; height: 13px;"></i>
+              Exact Age Result
+            </span>
+
+            <div class="age-big-units">
+              <div class="age-unit-box">
+                <span class="age-unit-val" id="res-years">0</span>
+                <span class="age-unit-label">Years</span>
+              </div>
+              <div class="age-unit-box">
+                <span class="age-unit-val" id="res-months">0</span>
+                <span class="age-unit-label">Months</span>
+              </div>
+              <div class="age-unit-box">
+                <span class="age-unit-val" id="res-days">0</span>
+                <span class="age-unit-label">Days</span>
+              </div>
+            </div>
+
+            <div class="breakdown-grid">
+              <div class="breakdown-item">
+                <div class="breakdown-label">Total Months</div>
+                <div class="breakdown-val" id="res-total-months">0</div>
+              </div>
+              <div class="breakdown-item">
+                <div class="breakdown-label">Total Weeks</div>
+                <div class="breakdown-val" id="res-total-weeks">0</div>
+              </div>
+              <div class="breakdown-item">
+                <div class="breakdown-label">Total Days</div>
+                <div class="breakdown-val" id="res-total-days">0</div>
+              </div>
+              <div class="breakdown-item">
+                <div class="breakdown-label">Day of the Week</div>
+                <div class="breakdown-val" id="res-born-day">Monday</div>
+              </div>
+            </div>
+
+            <div class="glass-card" style="margin-bottom: 16px; text-align: left; padding: 12px;">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 2px;">Next Birthday Countdown</div>
+              <div style="font-size: 1rem; font-weight: 700; color: var(--accent-gold);" id="res-next-birthday-text">0 months and 0 days</div>
+            </div>
+
+            <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 16px;">
+              Birth Date: <span id="res-meta-dob" style="color: #fff;">-</span> • 
+              Cost: <span id="res-meta-diamonds" style="color: var(--primary);">5</span> Diamonds
+            </div>
+
+            <button class="btn-secondary" id="btn-calc-back-home" style="width: 100%;">
+              <i data-lucide="arrow-left" style="width: 14px; height: 14px;"></i>
+              Back to Home
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 4. PROFILE VIEW ==================== -->
+      <section class="page-view" id="profile-view">
+        <div class="profile-header-card">
+          <div class="profile-avatar-wrap">
+            <img src="assets/logo.png" alt="Profile" class="profile-avatar-img" id="profile-img">
+          </div>
+          <h3 class="profile-name" id="profile-display-name">User Name</h3>
+          <p class="profile-email" id="profile-email">user@example.com</p>
+          <div class="profile-uid-pill" id="btn-copy-uid" title="Tap to copy UID">
+            <span>UID: <span id="profile-uid-text">...</span></span>
+            <i data-lucide="copy" style="width: 12px; height: 12px;"></i>
+          </div>
+          <div style="margin-top: 8px;">
+            <span class="badge-tag active" id="profile-status-badge">ACTIVE ACCOUNT</span>
+          </div>
+        </div>
+
+        <div class="profile-stats-card">
+          <div class="profile-stat-box">
+            <div class="p-num" id="profile-available-d">0</div>
+            <div class="p-label">Available</div>
+          </div>
+          <div class="profile-stat-box">
+            <div class="p-num" id="profile-used-d">0</div>
+            <div class="p-label">Used</div>
+          </div>
+          <div class="profile-stat-box">
+            <div class="p-num" id="profile-purchased-d">0</div>
+            <div class="p-label">Purchased</div>
+          </div>
+        </div>
+
+        <div class="menu-list">
+          <div class="menu-item" id="menu-btn-diamonds">
+            <div class="menu-item-left">
+              <div class="menu-item-icon"><i data-lucide="gem"></i></div>
+              <span class="menu-item-title">Diamonds</span>
+            </div>
+            <span class="menu-item-badge">Packages</span>
+          </div>
+
+          <div class="menu-item" id="menu-btn-calc-history">
+            <div class="menu-item-left">
+              <div class="menu-item-icon"><i data-lucide="history"></i></div>
+              <span class="menu-item-title">Calculation History</span>
+            </div>
+            <i data-lucide="chevron-right" style="width: 18px; height: 18px; color: var(--text-muted);"></i>
+          </div>
+
+          <div class="menu-item" id="menu-btn-purchase-history">
+            <div class="menu-item-left">
+              <div class="menu-item-icon"><i data-lucide="receipt"></i></div>
+              <span class="menu-item-title">Purchase History</span>
+            </div>
+            <i data-lucide="chevron-right" style="width: 18px; height: 18px; color: var(--text-muted);"></i>
+          </div>
+
+          <div class="menu-item" id="menu-btn-notifications">
+            <div class="menu-item-left">
+              <div class="menu-item-icon"><i data-lucide="bell"></i></div>
+              <span class="menu-item-title">Notifications</span>
+            </div>
+            <i data-lucide="chevron-right" style="width: 18px; height: 18px; color: var(--text-muted);"></i>
+          </div>
+
+          <!-- ADMIN PANEL BUTTON (Shown only to authorized Super Admin / Admins) -->
+          <div class="menu-item menu-admin-item" id="menu-btn-admin" style="display: none;">
+            <div class="menu-item-left">
+              <div class="menu-item-icon"><i data-lucide="shield-check"></i></div>
+              <span class="menu-item-title" style="color: var(--accent-gold);">Admin Panel</span>
+            </div>
+            <span class="badge-tag super">ADMIN</span>
+          </div>
+
+          <div class="menu-item" id="menu-btn-switch-account">
+            <div class="menu-item-left">
+              <div class="menu-item-icon"><i data-lucide="user-x"></i></div>
+              <span class="menu-item-title">Switch Google Account</span>
+            </div>
+            <i data-lucide="chevron-right" style="width: 18px; height: 18px; color: var(--text-muted);"></i>
+          </div>
+
+          <div class="menu-item" id="menu-btn-privacy">
+            <div class="menu-item-left">
+              <div class="menu-item-icon"><i data-lucide="shield"></i></div>
+              <span class="menu-item-title">Privacy Policy</span>
+            </div>
+            <i data-lucide="chevron-right" style="width: 18px; height: 18px; color: var(--text-muted);"></i>
+          </div>
+
+          <div class="menu-item" id="menu-btn-terms">
+            <div class="menu-item-left">
+              <div class="menu-item-icon"><i data-lucide="file-text"></i></div>
+              <span class="menu-item-title">Terms &amp; Conditions</span>
+            </div>
+            <i data-lucide="chevron-right" style="width: 18px; height: 18px; color: var(--text-muted);"></i>
+          </div>
+
+          <div class="menu-item" id="menu-btn-support">
+            <div class="menu-item-left">
+              <div class="menu-item-icon"><i data-lucide="help-circle"></i></div>
+              <span class="menu-item-title">Help &amp; Support</span>
+            </div>
+            <i data-lucide="chevron-right" style="width: 18px; height: 18px; color: var(--text-muted);"></i>
+          </div>
+
+          <div class="menu-item" id="menu-btn-signout" style="border-color: rgba(239, 68, 68, 0.3);">
+            <div class="menu-item-left">
+              <div class="menu-item-icon" style="color: var(--danger);"><i data-lucide="log-out"></i></div>
+              <span class="menu-item-title" style="color: var(--danger);">Sign Out</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FIXED BOTTOM NAVIGATION BAR (Strict: Home, Add Age, Profile) -->
+    <nav class="bottom-nav" id="app-bottom-nav" style="display: none;">
+      <button class="nav-item active" id="nav-btn-home" aria-label="Home">
+        <i data-lucide="home"></i>
+        <span>Home</span>
+      </button>
+      <button class="nav-item" id="nav-btn-calc" aria-label="Add Age">
+        <i data-lucide="calendar-plus"></i>
+        <span>Add Age</span>
+      </button>
+      <button class="nav-item" id="nav-btn-profile" aria-label="Profile">
+        <i data-lucide="user"></i>
+        <span>Profile</span>
+      </button>
+    </nav>
+
+    <!-- ==================== MODALS & SHEETS ==================== -->
+
+    <!-- CONFIRM AGE CALCULATION MODAL -->
+    <div class="modal-overlay" id="modal-confirm-calc">
+      <div class="modal-sheet">
+        <div class="sheet-handle"></div>
+        <div class="confirm-box">
+          <div class="confirm-icon-wrap">
+            <i data-lucide="gem" style="width: 28px; height: 28px;"></i>
+          </div>
+          <h3>Confirm Age Calculation</h3>
+          <p id="confirm-calc-message">Calculate your age for 5 diamonds?</p>
+          <div class="modal-buttons-row">
+            <button class="btn-secondary" id="btn-cancel-calc">Cancel</button>
+            <button class="btn-primary" id="btn-confirm-calc">Confirm &amp; Calculate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DIAMOND PACKAGES MODAL (2-Column Grid on Mobile) -->
+    <div class="modal-overlay" id="modal-packages">
+      <div class="modal-sheet">
+        <div class="sheet-handle"></div>
+        <div class="modal-title">
+          <span>Diamond Packages</span>
+          <button class="modal-close-btn" id="btn-close-packages"><i data-lucide="x"></i></button>
+        </div>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+          Purchases are processed securely via official Google Play Billing.
+        </p>
+        <div class="packages-grid" id="packages-list-container">
+          <!-- Dynamic 2-column cards inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTIFICATIONS MODAL -->
+    <div class="modal-overlay" id="modal-notifications">
+      <div class="modal-sheet">
+        <div class="sheet-handle"></div>
+        <div class="modal-title">
+          <span>Notifications</span>
+          <button class="modal-close-btn" id="btn-close-notifications"><i data-lucide="x"></i></button>
+        </div>
+        <div id="notifications-list-container" style="display: flex; flex-direction: column; gap: 8px;">
+          <!-- Notifications inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- CALCULATION HISTORY MODAL -->
+    <div class="modal-overlay" id="modal-calc-history">
+      <div class="modal-sheet">
+        <div class="sheet-handle"></div>
+        <div class="modal-title">
+          <span>Calculation History</span>
+          <button class="modal-close-btn" id="btn-close-calc-history"><i data-lucide="x"></i></button>
+        </div>
+        <div id="full-calc-history-list" style="display: flex; flex-direction: column; gap: 8px;">
+          <!-- Full list inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- PURCHASE HISTORY MODAL -->
+    <div class="modal-overlay" id="modal-purchase-history">
+      <div class="modal-sheet">
+        <div class="sheet-handle"></div>
+        <div class="modal-title">
+          <span>Purchase History</span>
+          <button class="modal-close-btn" id="btn-close-purchase-history"><i data-lucide="x"></i></button>
+        </div>
+        <div id="full-purchase-history-list" style="display: flex; flex-direction: column; gap: 8px;">
+          <!-- Purchases inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- POLICY / TERMS / SUPPORT MODAL -->
+    <div class="modal-overlay" id="modal-text-content">
+      <div class="modal-sheet">
+        <div class="sheet-handle"></div>
+        <div class="modal-title">
+          <span id="text-modal-title">Information</span>
+          <button class="modal-close-btn" id="btn-close-text-modal"><i data-lucide="x"></i></button>
+        </div>
+        <div id="text-modal-body" style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMIN AUTHENTICATION GATE MODAL -->
+    <div class="modal-overlay" id="modal-admin-auth">
+      <div class="modal-sheet">
+        <div class="sheet-handle"></div>
+        <div class="modal-title">
+          <span style="color: var(--accent-gold); display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="shield-check"></i>
+            Admin Access Verification
+          </span>
+          <button class="modal-close-btn" id="btn-close-admin-auth"><i data-lucide="x"></i></button>
+        </div>
+        <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 14px;">
+          Restricted access. Please provide your authorized Super Admin UID or administrative key to access the dashboard.
+        </p>
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label class="form-label">Admin UID / Secret Key</label>
+          <input type="text" id="admin-auth-uid-input" class="admin-input" placeholder="Paste Admin UID..." style="font-family: monospace;">
+        </div>
+        <div class="modal-buttons-row">
+          <button class="btn-secondary" id="btn-cancel-admin-auth">Cancel</button>
+          <button class="btn-primary" id="btn-verify-admin-auth">Verify &amp; Sign In</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOOGLE ACCOUNT SELECTOR MODAL (Official Android Style & Domain Helper) -->
+    <div class="modal-overlay" id="modal-google-accounts">
+      <div class="modal-sheet">
+        <div class="sheet-handle"></div>
+        <div class="google-sheet-header">
+          <svg viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <div>
+            <div style="font-weight: 700; font-size: 1rem; color: #fff;">Choose a Google account</div>
+            <div style="font-size: 11px; color: var(--text-secondary);">to continue to AgeBee Pro</div>
+          </div>
+        </div>
+
+        <div class="google-account-list">
+          <!-- Option 1: Instant Regular User Login (1-Tap) -->
+          <div class="google-account-card" id="btn-select-google-primary">
+            <div class="google-avatar">M</div>
+            <div class="google-account-info" style="flex: 1;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div class="google-account-name">Mafia Aktar</div>
+                <span class="badge-tag active" style="font-size: 9px; padding: 2px 6px;">REGULAR USER</span>
+              </div>
+              <div class="google-account-email">mafiaaktar1111@gmail.com</div>
+              <div style="font-size: 10px; color: var(--primary); margin-top: 2px;">💎 10 Free Welcome Diamonds</div>
+            </div>
+          </div>
+
+          <!-- Option 2: Live Firebase Google OAuth Popup -->
+          <div class="google-account-card" id="btn-select-google-oauth">
+            <div class="google-avatar" style="background: rgba(66, 133, 244, 0.15); color: #4285F4;">
+              <svg viewBox="0 0 24 24" style="width: 22px; height: 22px;">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+            </div>
+            <div class="google-account-info">
+              <div class="google-account-name">Google Sign-In (Firebase OAuth)</div>
+              <div class="google-account-email">Opens official Google login popup</div>
+            </div>
+          </div>
+
+          <!-- Option 3: Custom Gmail Address -->
+          <div class="google-account-card" id="btn-select-google-other">
+            <div class="google-avatar" style="background: rgba(255,255,255,0.08); color: var(--text-secondary);">
+              <i data-lucide="user-plus" style="width: 20px; height: 20px;"></i>
+            </div>
+            <div class="google-account-info">
+              <div class="google-account-name">Use your own Gmail account</div>
+              <div class="google-account-email">Enter your custom name &amp; Gmail</div>
+            </div>
+          </div>
+
+          <!-- Option 4: Super Admin Direct Login -->
+          <div class="google-account-card" id="btn-select-super-admin" style="border: 1px solid rgba(245, 158, 11, 0.4); background: rgba(245, 158, 11, 0.06);">
+            <div class="google-avatar" style="background: rgba(245, 158, 11, 0.2); color: var(--accent-gold);">
+              <i data-lucide="shield-check" style="width: 20px; height: 20px;"></i>
+            </div>
+            <div class="google-account-info" style="flex: 1;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div class="google-account-name" style="color: var(--accent-gold);">Super Admin Login</div>
+                <span class="badge-tag super" style="font-size: 9px; padding: 2px 6px;">SUPER ADMIN</span>
+              </div>
+              <div class="google-account-email" style="font-family: monospace; font-size: 10px;">UID: ocKYPuMF2u...iQL</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="custom-google-account-box" style="display: none; margin-bottom: 14px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <div style="font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 8px;">Create / Open Your Account:</div>
+          <input type="text" id="input-custom-name" class="admin-input" placeholder="Your Full Name (e.g. John Doe)">
+          <input type="email" id="input-custom-email" class="admin-input" placeholder="Your Gmail (e.g. user@gmail.com)">
+          <button class="btn-primary" id="btn-confirm-custom-google" style="width: 100%;">
+            Create Account &amp; Continue
+          </button>
+        </div>
+
+        <!-- FIREBASE AUTHORIZED DOMAIN CARD -->
+        <div class="domain-info-card">
+          <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+            <i data-lucide="key" style="width: 13px; height: 13px; color: var(--primary);"></i>
+            <span style="font-size: 11px; font-weight: 700; color: #38bdf8;">Firebase Authorized Domain:</span>
+          </div>
+          <div class="domain-copy-row">
+            <code id="firebase-domain-text">appassets.androidplatform.net</code>
+            <button class="btn-copy-domain" id="btn-copy-firebase-domain">
+              <i data-lucide="copy" style="width: 12px; height: 12px;"></i> Copy
+            </button>
+          </div>
+          <p style="font-size: 10px; color: var(--text-muted); margin-top: 4px; line-height: 1.3;">
+            Add this domain to Firebase Console &rarr; Authentication &rarr; Settings &rarr; Authorized domains for OAuth.
+          </p>
+        </div>
+
+        <button class="btn-secondary" id="btn-cancel-google-select" style="width: 100%; margin-top: 8px;">
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== ADMIN PANEL PORTAL ==================== -->
+    <div class="admin-view-container" id="admin-container">
+      <div class="admin-top-bar">
+        <div class="admin-header-title">
+          <i data-lucide="shield-alert"></i>
+          <span>Admin Portal</span>
+        </div>
+        <button class="admin-close-btn" id="btn-close-admin">
+          <i data-lucide="x" style="width: 14px; height: 14px;"></i>
+          Exit Admin
+        </button>
+      </div>
+
+      <!-- Admin Horizontal Tabs Navigation -->
+      <div class="admin-tabs-scroll" id="admin-nav-tabs">
+        <button class="admin-tab active" data-tab="dashboard">Dashboard</button>
+        <button class="admin-tab" data-tab="users">Users</button>
+        <button class="admin-tab" data-tab="packages">Packages</button>
+        <button class="admin-tab" data-tab="purchases">Purchases</button>
+        <button class="admin-tab" data-tab="wallets">Wallets</button>
+        <button class="admin-tab" data-tab="calc-settings">Age Settings</button>
+        <button class="admin-tab" data-tab="calc-history">All Calculations</button>
+        <button class="admin-tab" data-tab="notifications">Announcements</button>
+        <button class="admin-tab" data-tab="revenue">Revenue &amp; Reports</button>
+        <button class="admin-tab" data-tab="admin-uids">Admin UIDs</button>
+        <button class="admin-tab" data-tab="app-settings">App Settings</button>
+        <button class="admin-tab" data-tab="audit-logs">Audit Logs</button>
+      </div>
+
+      <div class="admin-content-area">
+        
+        <!-- Tab 1: Dashboard -->
+        <div class="admin-subpage active" id="admin-tab-dashboard">
+          <div class="admin-metrics-grid">
+            <div class="metric-card">
+              <div class="metric-label">Registered Users</div>
+              <div class="metric-num" id="metric-total-users">0</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Active Users</div>
+              <div class="metric-num" id="metric-active-users">0</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Total Purchases</div>
+              <div class="metric-num" id="metric-total-purchases">0</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Calculations Run</div>
+              <div class="metric-num" id="metric-total-calcs">0</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Diamonds Purchased</div>
+              <div class="metric-num" id="metric-diamonds-purchased">0</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Diamonds Spent</div>
+              <div class="metric-num" id="metric-diamonds-spent">0</div>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <h4 style="font-size: 0.95rem; margin-bottom: 8px;">Super Admin Identity</h4>
+            <div style="font-family: monospace; font-size: 11px; color: var(--accent-gold); word-break: break-all;">
+              ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">
+              Permanent Super Admin identity configured in security policies.
+            </p>
+          </div>
+        </div>
+
+        <!-- Tab 2: User Management -->
+        <div class="admin-subpage" id="admin-tab-users">
+          <div class="admin-form-card">
+            <label class="form-label">Search Users</label>
+            <input type="text" id="admin-search-user" class="admin-input" placeholder="Search by UID, Name, or Email...">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Diamonds</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-users-table-body">
+                  <!-- Users loaded dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- User Details / Manual Wallet Adjustment Modal/Card -->
+          <div class="admin-form-card" id="admin-user-adjust-card" style="display: none;">
+            <h4 style="font-size: 0.95rem; margin-bottom: 10px;">Adjust User Wallet</h4>
+            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">
+              Target: <span id="adjust-target-uid" style="color: #fff; font-family: monospace;">-</span>
+            </div>
+            <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+              <select id="adjust-type" class="admin-input" style="width: 120px;">
+                <option value="credit">Add (+)</option>
+                <option value="debit">Deduct (-)</option>
+              </select>
+              <input type="number" id="adjust-amount" class="admin-input" placeholder="Amount" min="1">
+            </div>
+            <input type="text" id="adjust-reason" class="admin-input" placeholder="Mandatory Audit Reason (e.g. Promotional credit or refund)">
+            <button class="btn-primary" id="btn-submit-wallet-adjustment" style="width: 100%;">
+              Commit Wallet Adjustment &amp; Log
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 3: Diamond Packages -->
+        <div class="admin-subpage" id="admin-tab-packages">
+          <div class="admin-form-card">
+            <h4 style="font-size: 0.95rem; margin-bottom: 12px;">Add / Edit Diamond Package</h4>
+            <input type="text" id="pkg-input-name" class="admin-input" placeholder="Package Name (e.g. Starter Pack)">
+            <input type="number" id="pkg-input-diamonds" class="admin-input" placeholder="Diamond Quantity (e.g. 50)">
+            <input type="text" id="pkg-input-product-id" class="admin-input" placeholder="Google Play Product ID (e.g. diamonds_50)">
+            <input type="text" id="pkg-input-price" class="admin-input" placeholder="Default Display Price (e.g. $0.99)">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+              <input type="checkbox" id="pkg-input-active" checked>
+              <label for="pkg-input-active" style="font-size: 12px;">Active in User Store</label>
+            </div>
+            <button class="btn-primary" id="btn-save-package" style="width: 100%;">Save Package</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Package</th>
+                  <th>Diamonds</th>
+                  <th>Play Product ID</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-packages-table-body">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 4: Purchase Management -->
+        <div class="admin-subpage" id="admin-tab-purchases">
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Purchase ID</th>
+                  <th>UID</th>
+                  <th>Diamonds</th>
+                  <th>State</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="admin-purchases-table-body">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 5: Wallet Management & Ledger -->
+        <div class="admin-subpage" id="admin-tab-wallets">
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>UID</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>Reason / Ref</th>
+                </tr>
+              </thead>
+              <tbody id="admin-wallet-transactions-body">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 6: Age Calculation Settings -->
+        <div class="admin-subpage" id="admin-tab-calc-settings">
+          <div class="admin-form-card">
+            <h4 style="font-size: 0.95rem; margin-bottom: 12px;">Calculation Rules &amp; Cost</h4>
+            <label class="form-label">Diamond Cost Per Calculation</label>
+            <input type="number" id="setting-calc-cost" class="admin-input" min="0" value="5">
+            
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+              <input type="checkbox" id="setting-calc-enabled" checked>
+              <label for="setting-calc-enabled" style="font-size: 12px;">Age Calculation Service Enabled</label>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+              <input type="checkbox" id="setting-calc-confirm" checked>
+              <label for="setting-calc-confirm" style="font-size: 12px;">Confirmation Dialog Required Before Debit</label>
+            </div>
+
+            <button class="btn-primary" id="btn-save-calc-settings" style="width: 100%;">
+              Update Calculation Settings
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 7: Calculation History -->
+        <div class="admin-subpage" id="admin-tab-calc-history">
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>User UID</th>
+                  <th>DOB</th>
+                  <th>Calculated Result</th>
+                  <th>Cost</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="admin-all-calcs-body">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 8: Notifications / Announcements -->
+        <div class="admin-subpage" id="admin-tab-notifications">
+          <div class="admin-form-card">
+            <h4 style="font-size: 0.95rem; margin-bottom: 12px;">Publish Announcement</h4>
+            <input type="text" id="notif-input-title" class="admin-input" placeholder="Notification Title">
+            <textarea id="notif-input-message" class="admin-input" rows="3" placeholder="Notification Message content..."></textarea>
+            <button class="btn-primary" id="btn-publish-notification" style="width: 100%;">
+              Broadcast In-App Announcement
+            </button>
+          </div>
+
+          <div id="admin-notifications-manage-list" style="display: flex; flex-direction: column; gap: 8px;">
+          </div>
+        </div>
+
+        <!-- Tab 9: Revenue & Reports -->
+        <div class="admin-subpage" id="admin-tab-revenue">
+          <div class="admin-metrics-grid">
+            <div class="metric-card">
+              <div class="metric-label">Gross Verified Purchases</div>
+              <div class="metric-num" id="rev-gross-amount">$0.00</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Estimated Net (Est. 85%)*</div>
+              <div class="metric-num" id="rev-net-amount">$0.00</div>
+            </div>
+          </div>
+          <p style="font-size: 11px; color: var(--text-muted); line-height: 1.4;">
+            *Note: Estimated net revenue is for administrative planning only. Official developer bank payouts and merchant settlements are executed strictly via Google Play according to your registered payments profile.
+          </p>
+        </div>
+
+        <!-- Tab 10: Admin UID Management (SUPER ADMIN ONLY) -->
+        <div class="admin-subpage" id="admin-tab-admin-uids">
+          <div class="glass-card" style="border-color: rgba(245, 158, 11, 0.4);">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+              <i data-lucide="shield-check" style="color: var(--accent-gold);"></i>
+              <h4 style="font-size: 0.95rem; color: #fff;">Permanent Super Admin</h4>
+            </div>
+            <div style="font-family: monospace; font-size: 11px; color: var(--accent-gold); word-break: break-all;">
+              ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+              Has permanent Super Admin authority. Cannot be removed or demoted.
+            </p>
+          </div>
+
+          <div class="admin-form-card" id="super-admin-controls-card">
+            <h4 style="font-size: 0.95rem; margin-bottom: 10px;">Authorize Additional Admin UID</h4>
+            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">
+              Only the permanent Super Admin can add or revoke administrative privileges.
+            </p>
+            <input type="text" id="new-admin-uid" class="admin-input" placeholder="Firebase Auth UID of user...">
+            <input type="text" id="new-admin-notes" class="admin-input" placeholder="Admin Label / Purpose...">
+            <button class="btn-primary" id="btn-add-admin-uid" style="width: 100%;">
+              Authorize Admin UID
+            </button>
+          </div>
+
+          <h4 style="font-size: 0.95rem; margin: 16px 0 8px;">Authorized Admin UIDs</h4>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>UID</th>
+                  <th>Notes</th>
+                  <th>Added By</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-uids-table-body">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 11: App Settings -->
+        <div class="admin-subpage" id="admin-tab-app-settings">
+          <div class="admin-form-card">
+            <h4 style="font-size: 0.95rem; margin-bottom: 12px;">Application Configuration</h4>
+            <label class="form-label">App Display Name</label>
+            <input type="text" id="setting-app-name" class="admin-input" value="AgeBee Pro">
+            
+            <label class="form-label">Support Email</label>
+            <input type="email" id="setting-support-email" class="admin-input" value="support@agebeepro.com">
+            
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+              <input type="checkbox" id="setting-maintenance-mode">
+              <label for="setting-maintenance-mode" style="font-size: 12px;">Maintenance Mode</label>
+            </div>
+
+            <button class="btn-primary" id="btn-save-app-settings" style="width: 100%;">
+              Save Configuration
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 12: Audit Logs -->
+        <div class="admin-subpage" id="admin-tab-audit-logs">
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Admin UID</th>
+                  <th>Action</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="admin-audit-logs-body">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- GLOBAL LUXURY PROGRESS & LOADING OVERLAY -->
+    <div id="global-luxury-loader" style="display: none;">
+      <div class="luxury-loader-card">
+        <div class="luxury-spinner-ring"></div>
+        <div class="luxury-loader-title" id="luxury-loader-title">Authenticating...</div>
+        <div class="luxury-loader-subtitle" id="luxury-loader-sub">Securing session with Firebase</div>
+      </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+  </div>
+
+  <!-- Main JavaScript Module -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

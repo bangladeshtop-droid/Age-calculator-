@@ -1,0 +1,6 @@
+{
+  "name": "AgeBee Pro",
+  "description": "Premium mobile-first age calculator with real-time diamond wallet, calculation history, and secure administration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,89 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "settings": {
+      "app": {
+        ".read": true,
+        ".write": "auth != null && (auth.uid === 'ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL' || root.child('admins').child(auth.uid).child('active').val() === true)"
+      },
+      "ageCalculation": {
+        ".read": "auth != null",
+        ".write": "auth != null && (auth.uid === 'ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL' || root.child('admins').child(auth.uid).child('active').val() === true)"
+      },
+      "maintenance": {
+        ".read": true,
+        ".write": "auth != null && auth.uid === 'ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL'"
+      }
+    },
+
+    "users": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL' || root.child('admins').child(auth.uid).child('active').val() === true)",
+        ".write": "auth != null && (auth.uid === $uid || auth.uid === 'ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL' || root.child('admins').child(auth.uid).child('active').val() === true)"
+      }
+    },
+
+    "wallets": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL' || root.child('admins').child(auth.uid).child('active').val() === true)",
+        ".write": "auth != null && (auth.uid === $uid || auth.uid === 'ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL' || root.child('admins').child(auth.uid).child('active').val() === true)"
+      }
+    },
+
+    "walletTransactions": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL' || root.child('admins').child(auth.uid).child('active').val() === true)",
+        "$txId": {
+          ".write": "auth != null && (auth.uid === $uid || auth.uid === 'ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL' || root.child('admins').child(auth.uid).child('active').val() === true)"
+        }
+      }
+    },
+
+    "calculationHistory": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL' || root.child('admins').child(auth.uid).child('active').val() === true)",
+        "$calcId": {
+          ".write": "auth != null && auth.uid === $uid"
+        }
+      }
+    },
+
+    "diamondPackages": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL' || root.child('admins').child(auth.uid).child('active').val() === true)"
+    },
+
+    "purchases": {
+      ".read": "auth != null",
+      "$purchaseId": {
+        ".write": "auth != null"
+      }
+    },
+
+    "notifications": {
+      ".read": "auth != null",
+      ".write": "auth != null && (auth.uid === 'ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL' || root.child('admins').child(auth.uid).child('active').val() === true)"
+    },
+
+    "notificationReads": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+
+    "admins": {
+      ".read": "auth != null && (auth.uid === 'ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL' || root.child('admins').child(auth.uid).child('active').val() === true)",
+      ".write": "auth != null && auth.uid === 'ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL'"
+    },
+
+    "adminAuditLogs": {
+      ".read": "auth != null && (auth.uid === 'ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL' || root.child('admins').child(auth.uid).child('active').val() === true)",
+      "$logId": {
+        ".write": "auth != null && (auth.uid === 'ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL' || root.child('admins').child(auth.uid).child('active').val() === true)"
+      }
+    }
+  }
+}

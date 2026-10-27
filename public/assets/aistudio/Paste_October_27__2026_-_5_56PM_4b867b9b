@@ -1,0 +1,974 @@
+MASTER PROJECT PROMPT — AGE BEE STYLE PREMIUM AGE CALCULATOR
+
+1. PROJECT OVERVIEW
+
+Build a complete, production-oriented Android application named AgeBee Pro (app name must be editable from configuration).
+
+The app is inspired by the Age Bee app experience, but must have its own original UI, branding, and implementation.
+
+Primary goal
+
+Create a premium mobile-first age calculator application with:
+
+- Google-only registration and login.
+- Firebase Authentication.
+- Firebase Realtime Database.
+- Google Play Billing for diamond purchases.
+- Secure diamond wallet.
+- Age calculation that consumes diamonds.
+- Profile page with user information.
+- A secure Admin Panel.
+- Permanent Super Admin UID.
+- Multiple additional Admin UIDs managed by the Super Admin.
+- Purchase history, calculation history, notifications, and settings.
+
+Do not include:
+
+- Games.
+- Exams.
+- Polls.
+- Quiz systems.
+- Unrelated earning tasks.
+- Unnecessary social features.
+- Firebase Firestore.
+- Firebase Storage.
+- Fake payment systems or fake purchase success.
+
+The final result must be a real, functional application—not merely a UI mockup.
+
+2. REQUIRED TECHNOLOGY
+
+Use the following architecture:
+
+Web UI
+
+- HTML5.
+- CSS3.
+- Vanilla JavaScript with ES modules.
+- Responsive, mobile-first design.
+- Lucide icons.
+- Firebase JavaScript SDK modular API, version 10.12.2 or a compatible tested version.
+
+Android application
+
+- Android Studio compatible native Android project.
+- Kotlin.
+- Android WebView or another appropriate bridge for displaying the web UI.
+- Native Google Play Billing Library integration.
+- Google Play purchase lifecycle handling.
+- Secure communication between Android and the web UI.
+- Android App Bundle (AAB) build support.
+
+If Google AI Studio cannot directly create or build every native Android component, generate the complete web project and all required Android source files, Gradle configuration, manifest, and integration instructions. Never pretend that an unbuilt project has been compiled or tested.
+
+Use Firebase Realtime Database only for application data. Firebase Authentication is required for identity management. Do not use Firebase Storage or Firestore.
+
+Google Play Billing must run through the native Android billing implementation. Do not simulate Play Billing through a website URL or a fake payment button.
+
+3. FIREBASE CONFIGURATION
+
+Use this supplied Firebase configuration exactly as provided:
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDDDx3a7T_KhAtQQ4CqmM82HYF9TbDbDkY",
+  authDomain: "goaltube-bd.firebaseapp.com",
+  databaseURL: "https://goaltube-bd-default-rtdb.firebaseio.com",
+  projectId: "goaltube-bd",
+  storageBucket: "goaltube-bd.firebasestorage.app",
+  messagingSenderId: "1096350321628",
+  appId: "1:1096350321628:web:deb94844974021fb1ddd19"
+};
+
+Initialize Firebase using the modular SDK.
+
+Required services:
+
+- Firebase Authentication.
+- Firebase Realtime Database.
+
+Use "GoogleAuthProvider" and the appropriate Google Sign-In flow for the target platform.
+
+Enable Google as a sign-in provider in Firebase Console and configure the required OAuth credentials and Android SHA fingerprints.
+
+The Firebase configuration is project configuration, not a substitute for database security rules or server-side authorization.
+
+4. ADMIN UID CONFIGURATION
+
+Permanent Super Admin UID:
+
+ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL
+
+This UID is the permanent Super Admin identity.
+
+Requirements:
+
+1. Never expose Admin Panel access to normal users.
+2. The permanent Super Admin UID must always retain Super Admin privileges.
+3. The Super Admin can add or remove additional Admin UIDs.
+4. Additional Admin UIDs must be stored in Firebase Realtime Database.
+5. Additional Admins must not be able to remove or downgrade the permanent Super Admin.
+6. Only the permanent Super Admin can manage Admin UIDs.
+7. Removing an additional Admin must revoke access through server-enforced authorization, not merely hide a button.
+8. A client-side UID comparison alone is not sufficient security.
+9. Use secure server-side authorization, Firebase Admin SDK or custom claims where appropriate, and restrictive Realtime Database Security Rules.
+10. Never allow a normal user to write their own admin role.
+
+The supplied Super Admin UID is valid only if it matches the Firebase Authentication UID of the intended administrator.
+
+5. GOOGLE LOGIN AND REGISTRATION FLOW
+
+Create a premium welcome screen.
+
+Welcome screen
+
+Display:
+
+- App logo.
+- App name.
+- Original age-calculator illustration.
+- Heading: “Calculate Your Age Precisely”.
+- Subtitle: “Your age, your milestones, all in one place.”
+- Continue with Google button.
+- Privacy Policy link.
+- Terms & Conditions link.
+
+Login flow
+
+1. The user taps Continue with Google.
+2. The official Google account selector opens.
+3. The user chooses a Google account.
+4. Firebase Authentication signs in the user.
+5. If this is the user's first login, create their user profile.
+6. If the user already exists, load their existing account.
+7. Load their diamond balance and histories from Firebase.
+8. Navigate to Home.
+
+Store user data under the Firebase Authentication UID, not the email address.
+
+Suggested user record:
+
+{
+  "uid": "FIREBASE_AUTH_UID",
+  "displayName": "User Name",
+  "email": "user@example.com",
+  "photoURL": "",
+  "createdAt": 0,
+  "lastLoginAt": 0,
+  "status": "active",
+  "diamonds": {
+    "available": 0,
+    "used": 0,
+    "purchased": 0
+  }
+}
+
+The above is a schema example. Generate actual timestamps and authenticated user data at runtime.
+
+Google account switching
+
+Include a “Switch Google Account” action on the Profile page.
+
+When switching accounts:
+
+- Sign out of the current Firebase session correctly.
+- Start the Google account selection flow.
+- Authenticate the selected account.
+- Load that account's own profile and wallet.
+- Never transfer diamonds or history between accounts.
+- Never let a client choose another UID to access that user's data.
+
+Explain that the Google account used by Firebase Authentication and the Google Play purchasing account may differ. The native Play purchase flow must follow Google's actual account selection and eligibility rules.
+
+6. USER APP TOP NAVIGATION BAR
+
+Create a premium, fixed top navigation bar.
+
+Only these three items should appear:
+
+1. App logo on the left.
+2. App name beside the logo.
+3. Notification bell on the right.
+
+Do not put the diamond balance or profile icon in this header.
+
+Design:
+
+- Compact mobile layout.
+- Premium dark background.
+- Clean typography.
+- Consistent spacing.
+- Notification badge for unread notifications.
+- Accessible icon labels.
+- Safe-area support on Android.
+
+The notification bell opens the Notifications page.
+
+7. HOME PAGE
+
+Directly beneath the header, display a premium bank-card-inspired Diamond Balance Card.
+
+Diamond card content
+
+Show:
+
+- Total Diamonds.
+- Used Diamonds.
+- Available Diamonds.
+- Diamond icon.
+- Buy Diamonds button.
+
+Definitions:
+
+- Available Diamonds: current spendable balance.
+- Used Diamonds: lifetime diamonds spent on age calculations.
+- Total Diamonds: purchased diamonds plus any legitimate initial credits, adjusted according to the documented wallet ledger and refund policy.
+
+Never use arbitrary values or hardcoded sample balances in production.
+
+Read actual wallet data from Firebase.
+
+Home page additional sections
+
+1. Welcome message with the authenticated user's display name.
+2. Diamond Balance Card.
+3. Quick Age Calculator card.
+4. Next Birthday countdown.
+5. Recent Age Calculations.
+6. Recent Purchase History.
+7. Latest Notifications.
+
+Keep the Home page focused and uncluttered.
+
+8. BOTTOM NAVIGATION
+
+Create a fixed bottom navigation bar containing exactly three options:
+
+1. Home.
+2. Add Age.
+3. Profile.
+
+Each option must have:
+
+- An icon.
+- A label.
+- Active and inactive states.
+- Smooth navigation.
+- Proper Android safe-area spacing.
+
+Do not add extra tabs.
+
+9. ADD AGE PAGE
+
+Create a dedicated age-calculation page.
+
+Input fields
+
+- Date of Birth.
+- Day selector.
+- Month selector.
+- Year selector.
+- Calculate Age button.
+
+Validation:
+
+- Date of birth must be valid.
+- Date of birth cannot be in the future.
+- Handle leap years and month lengths correctly.
+- Use the correct current date and time zone.
+- Prevent invalid or duplicate submissions.
+
+Calculation flow
+
+1. User selects their birth date.
+2. User taps Calculate Age.
+3. Load the current calculation cost from trusted configuration.
+4. Display a confirmation dialog.
+
+Example:
+
+“Calculate your age for 5 diamonds?”
+
+Buttons:
+
+- Cancel.
+- Confirm & Calculate.
+
+The number shown must come from the current admin-configured cost, not a hardcoded value.
+
+After confirmation:
+
+- Verify the user is authenticated.
+- Verify the account is active.
+- Verify the available diamond balance is sufficient.
+- Submit the calculation request to the trusted backend.
+- Deduct diamonds atomically.
+- Save the calculation history.
+- Return the calculated age only after the operation succeeds.
+
+Do not deduct diamonds when the user cancels.
+
+Do not deduct diamonds twice if the user double-clicks or retries a request.
+
+Age result
+
+Display:
+
+- Years.
+- Months.
+- Days.
+- Optional total months.
+- Optional total weeks.
+- Optional total days.
+- Optional hours and minutes, if a birth time is supplied.
+
+Do not invent an exact birth time when the user only provides a date.
+
+Include:
+
+- Birth date.
+- Calculation date.
+- Diamonds consumed.
+- Back to Home button.
+
+Calculation history
+
+Save:
+
+- Calculation ID.
+- User UID.
+- Date of birth.
+- Calculation timestamp.
+- Calculated result.
+- Diamonds charged.
+
+Users may view their own calculation history only.
+
+10. DIAMOND WALLET SYSTEM
+
+The wallet must use Firebase Realtime Database and a trusted server-side transaction service.
+
+Requirements:
+
+- Available balance.
+- Used balance.
+- Purchased total.
+- Wallet transaction history.
+- Purchase credits.
+- Age calculation debits.
+- Refund adjustments.
+- Admin adjustments with audit logs.
+
+Never trust a diamond amount sent by the browser.
+
+Never let a normal client directly increase its own diamond balance.
+
+Use server-side transactions and idempotency keys to prevent duplicate credits or deductions.
+
+Every wallet operation must create an auditable ledger record.
+
+11. DIAMOND PACKAGE MANAGEMENT
+
+All diamond packages must be controlled through the Admin Panel.
+
+The user-facing Diamond Packages page must display only active packages.
+
+Package layout
+
+Use a responsive two-column grid on mobile: two packages per row.
+
+Each package card displays:
+
+- Diamond icon.
+- Package name.
+- Diamond quantity.
+- Localized price returned by Google Play Billing.
+- Purchase button.
+
+Do not show bonus diamonds. There is no bonus-diamond system.
+
+Admin package fields
+
+- Package ID.
+- Package name.
+- Diamond quantity.
+- Google Play product ID.
+- Active/Inactive status.
+- Display order.
+- Created timestamp.
+- Updated timestamp.
+
+Admin actions:
+
+- Add package.
+- Edit package.
+- Activate/deactivate package.
+- Delete package with confirmation.
+- Reorder packages.
+
+Validate that each product ID matches a configured Google Play product.
+
+Product configuration stored in Firebase does not create a Google Play product automatically. Products must also be configured in Google Play Console.
+
+The Android app must query Google Play Billing for actual product details and localized pricing. Never invent or hardcode a Play Store offer price.
+
+12. GOOGLE PLAY BILLING AND PURCHASE OFFERS
+
+Integrate the official native Google Play Billing Library.
+
+Purchase flow
+
+1. User opens Profile → Diamonds or taps Buy Diamonds.
+2. The app loads active package configuration from Firebase.
+3. The native Android layer queries Google Play Billing for available product details.
+4. Display valid products and prices.
+5. User taps Purchase.
+6. Launch the official Google Play purchase flow.
+7. Google Play determines the applicable purchase account, product availability, regional price, and any eligible offer.
+8. Receive the purchase result.
+9. Send the purchase token and necessary purchase metadata to the trusted backend.
+10. Verify the purchase with the Google Play Developer API.
+11. Check that the product ID, purchase state, package quantity, and purchase token are valid.
+12. Prevent duplicate credits for an already processed token.
+13. Credit the correct diamond quantity to the authenticated user's wallet.
+14. Record the purchase.
+15. Acknowledge or consume the purchase as required by the product type and Google Play Billing lifecycle.
+16. Refresh the wallet UI.
+
+Never credit diamonds based only on a client-side success callback.
+
+Handle:
+
+- User cancellation.
+- Pending purchases.
+- Network failure.
+- Already-owned purchases.
+- Duplicate purchase tokens.
+- Refunds.
+- Revocations.
+- Purchase restoration.
+- Backend verification failure.
+
+For consumable diamond products, implement the correct consume/acknowledge lifecycle and restore handling.
+
+Google Play offers
+
+The app must not attempt to copy or fabricate a Google Play offer page.
+
+Offers are subject to Google Play eligibility, product configuration, account, region, and other applicable requirements. Google Play controls which offers are actually available.
+
+Do not claim that Firebase Google login guarantees the same Google account will be used for Play purchases. Explain this distinction in the implementation notes.
+
+Revenue and bank settlement
+
+Google Play manages the merchant payout process according to the developer's payments profile, supported country, tax information, bank details, and settlement schedule.
+
+Never promise instant bank settlement or a fixed fee percentage.
+
+The Admin Panel may display verified purchase totals and estimated net revenue, but actual fees, taxes, refunds, and bank payouts must not be fabricated.
+
+13. PROFILE PAGE
+
+Display:
+
+- Google profile photo.
+- Display name.
+- Email address.
+- Firebase UID.
+- Registration date.
+- Account status.
+- Available Diamonds.
+- Used Diamonds.
+- Purchased Diamonds.
+
+Buttons:
+
+- Diamonds.
+- Calculation History.
+- Purchase History.
+- Notifications.
+- Switch Google Account.
+- Privacy Policy.
+- Terms & Conditions.
+- Help & Support.
+- Sign Out.
+
+Diamonds button
+
+When clicked:
+
+- Open the Diamond Packages page.
+- Display active packages in a two-column grid on mobile.
+- Fetch actual prices through Google Play Billing.
+- Use the native purchase flow.
+
+Admin Panel button
+
+Show an Admin Panel entry on the Profile page only when the authenticated Firebase UID is authorized.
+
+The permanent Super Admin and currently authorized additional Admins may see this button.
+
+Normal users must not see it.
+
+Hiding the button is only a UI measure. All admin actions and data access must also be protected by server-enforced authorization.
+
+14. ADMIN LOGIN FLOW
+
+When an authorized user clicks Admin Panel:
+
+1. Open the Admin Login page.
+2. Display app logo and “Admin Access”.
+3. Display a Sign in with Google button.
+4. Open Google account selection.
+5. Authenticate through Firebase Authentication.
+6. Retrieve the authenticated Firebase UID.
+7. Verify the UID through trusted authorization.
+8. If authorized, open the Admin Dashboard.
+9. If unauthorized, show “Access Denied — This Google account is not authorized as an administrator.”
+10. Do not reveal protected admin data before authorization.
+
+The permanent Super Admin UID is:
+
+"ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL"
+
+Only this UID can manage additional Admin UIDs.
+
+15. ADMIN PANEL UI
+
+Build a separate, responsive Admin Panel with a premium dark dashboard.
+
+Sidebar navigation
+
+Include:
+
+1. Dashboard.
+2. User Management.
+3. Diamond Packages.
+4. Purchase Management.
+5. Wallet Management.
+6. Age Calculation Settings.
+7. Calculation History.
+8. Notifications.
+9. Revenue & Reports.
+10. Admin UID Management.
+11. App Settings.
+12. Security & Audit Logs.
+13. Sign Out.
+
+On mobile, use a collapsible sidebar or navigation drawer.
+
+Dashboard
+
+Display real Firebase-backed metrics:
+
+- Total registered users.
+- Active users.
+- Total verified purchases.
+- Total diamonds purchased.
+- Total diamonds spent.
+- Number of calculations.
+- Recent registrations.
+- Recent verified purchases.
+- Pending purchase verifications.
+- Refunds and revoked purchases.
+
+Never use fake production metrics.
+
+User Management
+
+Features:
+
+- Search by UID, name, or email.
+- View user profile.
+- View wallet summary.
+- View purchase history.
+- View calculation history.
+- Enable/disable account where supported by the trusted backend.
+- Add or deduct diamonds only through a secure, logged backend operation.
+- Require a reason for every manual wallet adjustment.
+
+Never allow the admin UI to edit a user's balance directly in an unrestricted database write.
+
+Diamond Packages
+
+Implement the package controls defined in Section 11.
+
+Purchase Management
+
+Show:
+
+- Purchase ID.
+- User UID.
+- Product ID.
+- Diamond quantity.
+- Purchase state.
+- Verification state.
+- Purchase time.
+- Refund/revocation status.
+
+Provide filters and search.
+
+Only the trusted backend can mark a purchase verified.
+
+Wallet Management
+
+Show:
+
+- User wallet.
+- Credit/debit transactions.
+- Purchase credits.
+- Calculation debits.
+- Refund adjustments.
+- Manual adjustments.
+- Transaction ID.
+- Timestamp.
+- Actor and reason.
+
+Age Calculation Settings
+
+Admin controls:
+
+- Enable/disable age calculation.
+- Diamond cost per calculation.
+- Minimum/maximum allowed date.
+- Confirmation message.
+- Calculation history retention settings, subject to applicable privacy requirements.
+
+Changing the calculation cost must immediately update the user UI.
+
+The trusted backend must use the authoritative current cost when processing a request, even if the UI has stale data.
+
+Notifications
+
+Admin can:
+
+- Create notification.
+- Edit notification.
+- Publish/unpublish.
+- Delete notification.
+- Set title and message.
+- Set creation time.
+- Track read/unread state.
+
+Do not claim push notifications work unless the appropriate native notification infrastructure is implemented. In-app notifications may use Firebase Realtime Database.
+
+Revenue & Reports
+
+Display:
+
+- Verified gross purchase totals.
+- Refunded totals.
+- Estimated fees and net revenue where actual data is available.
+- Purchase counts.
+- Product performance.
+- Date range filters.
+- Export reports where supported.
+
+Clearly label estimated values. Do not present estimates as actual Google Play bank payouts.
+
+App Settings
+
+Admin can edit:
+
+- App display name.
+- Logo URL or approved asset reference.
+- Support email.
+- Privacy Policy URL.
+- Terms & Conditions URL.
+- Maintenance mode.
+- In-app announcement.
+- Supported display options.
+
+Security & Audit Logs
+
+Record:
+
+- Admin UID.
+- Action.
+- Target record.
+- Timestamp.
+- Result.
+- Reason where applicable.
+
+Logs must be generated by a trusted backend for privileged operations.
+
+16. ADMIN UID MANAGEMENT
+
+Create an Admin UID Management page accessible only to the permanent Super Admin.
+
+Permanent Super Admin
+
+UID:
+
+"ocKYPuMF2u7wM9BHJ3W50yfrBx24qHvJfVOI2iQL"
+
+Rules:
+
+- Cannot be removed through the Admin Panel.
+- Cannot be demoted by another Admin.
+- Retains access even if all additional Admins are removed.
+
+Additional Admins
+
+The Super Admin can:
+
+- Add an Admin UID.
+- View authorized Admin UIDs.
+- Remove an additional Admin UID.
+- View when the UID was added.
+- Record which Super Admin performed the action.
+
+Do not trust an arbitrary UID submitted by the client.
+
+Verify the identity of the user being authorized through a secure backend workflow. A UID should only be added after the intended account has been independently verified.
+
+Additional Admins must not be allowed to:
+
+- Add other Admins.
+- Remove other Admins.
+- Change the permanent Super Admin.
+- Modify protected security settings.
+- Grant themselves higher privileges.
+
+If role-specific permissions are implemented, use least-privilege authorization and enforce it on the backend.
+
+Revocation must take effect for subsequent privileged requests, even if a user has an existing session.
+
+17. FIREBASE REALTIME DATABASE STRUCTURE
+
+Use the following suggested structure:
+
+/settings
+  /app
+  /ageCalculation
+  /maintenance
+
+/users/{uid}
+/wallets/{uid}
+/walletTransactions/{uid}/{transactionId}
+/diamondPackages/{packageId}
+/purchases/{purchaseId}
+/purchaseTokens/{tokenHash}
+/calculationHistory/{uid}/{calculationId}
+/notifications/{notificationId}
+/notificationReads/{uid}/{notificationId}
+/admins/{uid}
+/adminAuditLogs/{logId}
+/reports/{reportId}
+/support
+
+Example settings:
+
+{
+  "ageCalculation": {
+    "enabled": true,
+    "cost": 5,
+    "confirmationRequired": true
+  }
+}
+
+The value "5" is only an initial example. The Super Admin must be able to change it from the Admin Panel.
+
+Use atomic transactions for wallet updates.
+
+Use server timestamps for trusted transaction records.
+
+Store purchase tokens securely and avoid exposing raw tokens unnecessarily.
+
+Do not store Google service account private keys, service account JSON, private signing keys, or other server secrets in Realtime Database or frontend code.
+
+18. SECURITY RULES AND BACKEND
+
+Security is a mandatory part of the project.
+
+Implement and document restrictive Firebase Realtime Database Security Rules.
+
+Requirements:
+
+- Deny unauthenticated access to private user data.
+- Users can read only their own private profile and histories.
+- Users cannot directly change wallet balances.
+- Users cannot directly mark purchases as verified.
+- Users cannot assign themselves Admin roles.
+- Admin access must be enforced by trusted authorization.
+- Package writes require authorized admin privileges.
+- Sensitive audit logs cannot be edited by normal clients.
+- Validate input types and allowed fields.
+- Never deploy open read/write rules.
+
+Use a trusted backend, such as secured Firebase Cloud Functions or an equivalent server environment, for:
+
+- Google Play purchase verification.
+- Wallet credits and debits.
+- Purchase token deduplication.
+- Refund/revocation processing.
+- Admin authorization.
+- Admin UID management.
+- Account status changes.
+- Audit log generation.
+
+The Firebase Admin SDK bypasses Realtime Database Security Rules, so the backend must explicitly validate authentication, authorization, inputs, and transaction conditions.
+
+Do not put backend secrets inside HTML, JavaScript, an Android asset, or a publicly accessible Firebase node.
+
+19. DESIGN SYSTEM
+
+Use a polished, premium mobile application aesthetic.
+
+Suggested visual direction:
+
+- Deep navy or near-black background.
+- Refined blue and violet gradients.
+- Diamond-inspired highlights.
+- Subtle glass-style cards.
+- Rounded cards and buttons.
+- Clean, readable typography.
+- Lucide icons.
+- Smooth, restrained animations.
+- Consistent spacing.
+- Clear loading, success, empty, and error states.
+
+Avoid:
+
+- Excessive neon.
+- Cluttered dashboards.
+- Tiny text.
+- Fake 3D elements that reduce usability.
+- Excessive animation.
+- Desktop-first layouts.
+
+The app must feel native on Android, not like an unstyled website inside a WebView.
+
+Respect Android safe areas, status bar, navigation bar, back button, keyboard, and screen resizing.
+
+20. ERROR HANDLING
+
+Implement user-friendly messages for:
+
+- Google Sign-In cancellation.
+- Network errors.
+- Firebase permission errors.
+- Insufficient diamonds.
+- Disabled account.
+- Invalid date.
+- Google Play Billing unavailable.
+- Product not found.
+- Purchase cancelled.
+- Pending purchase.
+- Failed server verification.
+- Duplicate purchase.
+- Refund or revoked purchase.
+- Unauthorized Admin access.
+
+Never show “Payment successful” until the trusted verification and wallet update have succeeded.
+
+21. TESTING REQUIREMENTS
+
+Provide a test checklist for:
+
+1. First-time Google registration.
+2. Existing Google login.
+3. Google account switching.
+4. Separate wallet per Firebase UID.
+5. Correct age calculation.
+6. Insufficient diamond balance.
+7. Correct diamond deduction.
+8. Duplicate calculation prevention.
+9. Admin cost changes.
+10. Active/inactive packages.
+11. Native Google Play purchase flow.
+12. Successful purchase verification.
+13. Duplicate purchase-token rejection.
+14. Refund/revocation handling.
+15. Permanent Super Admin access.
+16. Additional Admin authorization.
+17. Admin removal and access revocation.
+18. Unauthorized database writes.
+19. Android back button.
+20. Mobile responsiveness.
+
+Use Google Play test purchases and the appropriate Play testing tracks before production.
+
+22. REQUIRED DELIVERABLES
+
+Generate the project in logical stages.
+
+Stage 1 — Complete UI
+
+- Welcome and Google login UI.
+- Home.
+- Diamond balance card.
+- Add Age.
+- Profile.
+- Diamond Packages.
+- Notifications.
+- Calculation History.
+- Purchase History.
+- Admin Login.
+- Admin Dashboard and all admin pages.
+
+Use clearly identified development mocks only when needed for visual testing. Never mix mock data with production purchase or wallet operations.
+
+Stage 2 — Firebase integration
+
+- Firebase initialization.
+- Google Authentication.
+- User profiles.
+- Realtime Database listeners.
+- Secure database schema.
+- Security Rules.
+
+Stage 3 — Wallet and backend
+
+- Wallet ledger.
+- Atomic diamond deductions.
+- Server-side age calculation requests.
+- Admin operations.
+- Audit logs.
+- Purchase verification endpoints.
+
+Stage 4 — Native Android integration
+
+- Android project.
+- Web UI integration.
+- Google Sign-In configuration.
+- Native Google Play Billing.
+- Secure communication bridge.
+- Android lifecycle and back-button handling.
+
+Stage 5 — Testing and release
+
+- Gradle configuration.
+- Android manifest.
+- App icon and branding assets.
+- Build instructions.
+- AAB generation instructions.
+- Google Play Console product setup.
+- Internal testing checklist.
+- Production security checklist.
+
+23. FINAL INSTRUCTIONS
+
+Do not merely explain how to build the app. Generate the actual implementation files and working code wherever the environment supports them.
+
+Start by presenting the proposed project architecture and file structure. Then build the UI in manageable stages.
+
+Keep the following requirements consistent throughout every stage:
+
+- Google-only authentication.
+- Firebase Realtime Database.
+- No Firestore.
+- No Firebase Storage.
+- Three bottom navigation items only: Home, Add Age, Profile.
+- Header contains logo, app name, and notification bell only.
+- Diamond balance card directly below the header.
+- Admin-configurable age calculation cost.
+- Admin-managed diamond packages.
+- Two packages per row on mobile.
+- No bonus diamonds.
+- Official native Google Play Billing.
+- Trusted server-side purchase verification.
+- Permanent Super Admin UID.
+- Multiple additional Admin UIDs managed only by the Super Admin.
+- Strict authorization and secure wallet transactions.
+
+Do not claim the app is production-ready until authentication, security rules, backend verification, Android billing, and real-device tests have actually been completed.
